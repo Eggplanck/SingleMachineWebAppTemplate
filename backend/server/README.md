@@ -13,6 +13,10 @@ http://localhost:8080/docs
 ```
 docker exec -it dev_server /bin/bash
 ```
+or first
+```
+docker run --rm --name dev_server -it -p 8080:80 -v $PWD/app:/app server /bin/bash
+```
 
 ## Stop the development server
 ```
