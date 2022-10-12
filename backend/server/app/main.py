@@ -24,6 +24,25 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip, limit)
     return users
 
+@app.post("/memos/", response_model=schemas.Memo, status_code=201)
+def create_memo(memo: schemas.MemoCreate, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_user)):
+    db_memo = crud.get_memo_by_title(db, memo.title, current_user.id)
+    if db_memo:
+        raise HTTPException(status_code=409, detail="Title already registered")
+    return crud.create_memo(db, memo, current_user.id)
+
+@app.get("/memos/", response_model=List[schemas.Memo], status_code=200)
+def read_multiple_memos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_user)):
+    memos = crud.get_memos(db, current_user.id, skip, limit)
+    return memos
+
+@app.get("/memos/{memo_id}", response_model=schemas.Memo, status_code=200)
+def read_one_memo(memo_id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_user)):
+    db_memo = crud.get_memo(db, memo_id, current_user.id)
+    if db_memo is None:
+        raise HTTPException(status_code=404, detail="Memo not found")
+    return db_memo
+
 
 @app.post("/token", response_model=auth.Token)
 async def login_to_get_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
