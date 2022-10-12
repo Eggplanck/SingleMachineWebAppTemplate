@@ -31,3 +31,17 @@ def get_memos(db: Session, owner_id: int, skip: int = 0, limit: int = 100):
 
 def get_memo_by_title(db: Session, title: str, owner_id: int):
     return db.query(models.Memo).filter(models.Memo.owner_id == owner_id).filter(models.Memo.title == title).first()
+
+def update_memo(db: Session, memo_id: int, memo: schemas.MemoCreate):
+    db_memo = db.query(models.Memo).filter(models.Memo.id == memo_id).first()
+    db_memo.title = memo.title
+    db_memo.content = memo.content
+    db.add(db_memo)
+    db.commit()
+    db.refresh(db_memo)
+    return db_memo
+
+def delete_memo(db: Session, memo_id: int):
+    memo_db = db.query(models.Memo).filter(models.Memo.id == memo_id).first()
+    db.delete(memo_db)
+    db.commit()

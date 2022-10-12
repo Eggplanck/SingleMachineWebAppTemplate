@@ -43,6 +43,24 @@ def read_one_memo(memo_id: int, db: Session = Depends(get_db), current_user: sch
         raise HTTPException(status_code=404, detail="Memo not found")
     return db_memo
 
+@app.put("/memos/{memo_id}", response_model=schemas.Memo, status_code=200)
+def update_memo(memo_id: int, memo: schemas.MemoCreate, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_user)):
+    db_memo = crud.get_memo(db, memo_id, current_user.id)
+    if db_memo is None:
+        raise HTTPException(status_code=404, detail="Memo not found")
+    db_memo = crud.get_memo_by_title(db, memo.title, current_user.id)
+    if db_memo and db_memo.id != memo_id:
+        raise HTTPException(status_code=409, detail="Title already registered")
+    return crud.update_memo(db, memo_id, memo)
+
+@app.delete("/memos/{memo_id}", status_code=204)
+def delete_memo(memo_id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_user)):
+    db_memo = crud.get_memo(db, memo_id, current_user.id)
+    if db_memo is None:
+        raise HTTPException(status_code=404, detail="Memo not found")
+    crud.delete_memo(db, memo_id)
+    return Response(status_code=204)
+
 
 @app.post("/token", response_model=auth.Token)
 async def login_to_get_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
