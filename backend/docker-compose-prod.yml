@@ -1,0 +1,31 @@
+version: '3'
+services:
+  db:
+    build: ./database
+    image: smwa-database:prod
+    container_name: database
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: fastapi
+      TZ: Asia/Tokyo
+  
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    image: smwa-server:prod
+    container_name: server
+    command: bash -c "sleep 10 && echo starting server && uvicorn app.main:app --reload --host 0.0.0.0 --port 80"
+    ports:
+      - 8080:80
+    environment:
+      POSTGRES_SERVER: db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: fastapi
+      POSTGRES_PORT: 5432
+    depends_on:
+      - db
