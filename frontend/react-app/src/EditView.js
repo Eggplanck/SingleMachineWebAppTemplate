@@ -13,7 +13,7 @@ function EditView(props) {
   const memoId = props.memoId;
   const [data, setData] = useState({})
   useEffect(() => {
-    if (localStorage.getItem('token')===null){
+    if (localStorage.getItem('token') === null) {
       props.changeView("SignIn");
       return;
     }
@@ -25,12 +25,12 @@ function EditView(props) {
         .catch((error) => {
           alert(error.response.data.message);
           console.log(error);
-          if (error.response.status===401){
+          if (error.response.status === 401) {
             localStorage.removeItem('token');
             props.changeView('SignIn');
           }
         });
-    }else{
+    } else {
       setData({
         title: "",
         content: ""
@@ -38,7 +38,7 @@ function EditView(props) {
     }
   }, []);
 
-  const handleSubmit= (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const formdata = new FormData(event.currentTarget);
     const request_body = {
@@ -47,26 +47,26 @@ function EditView(props) {
     }
     if (memoId >= 0) {
       authApi.put(`/memos/${memoId}`, request_body)
-      .then((response) => {
-        props.changeView('List');
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-        console.log(error);
-      });
-    }else{
+        .then((response) => {
+          props.changeView('List');
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+          console.log(error);
+        });
+    } else {
       authApi.post('/memos/', request_body)
-      .then((response) => {
-        props.changeView('List');
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-        console.log(error);
-      });
+        .then((response) => {
+          props.changeView('List');
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+          console.log(error);
+        });
     }
   };
 
-  if (data.title===undefined){
+  if (data.title === undefined) {
     return (
       <Box>
         <Header changeView={props.changeView} />

@@ -20,7 +20,7 @@ function TitleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={()=>{props.changeView('Detail', memoId)}} >detail</Button>
+        <Button size="small" onClick={() => { props.changeView('Detail', memoId) }} >detail</Button>
       </CardActions>
     </Card>
   );

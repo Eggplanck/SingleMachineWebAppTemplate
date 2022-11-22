@@ -18,4 +18,4 @@ const noAuthApi = axios.create({
   baseURL: API_URL
 })
 
-export {authApi, noAuthApi};
+export { authApi, noAuthApi };

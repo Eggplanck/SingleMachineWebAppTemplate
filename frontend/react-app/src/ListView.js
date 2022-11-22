@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 function ListView(props) {
   const [titleCardList, setTitleCardList] = useState([]);
   useEffect(() => {
-    if (localStorage.getItem('token')===null){
+    if (localStorage.getItem('token') === null) {
       props.changeView("SignIn");
       return;
     }
@@ -22,7 +22,7 @@ function ListView(props) {
       .catch((error) => {
         alert(error.response.data.message);
         console.log(error);
-        if (error.response.status===401){
+        if (error.response.status === 401) {
           localStorage.removeItem('token');
           props.changeView('SignIn');
         }
@@ -36,7 +36,7 @@ function ListView(props) {
         {titleCardList}
         <Box sx={{ height: 100 }} />
       </Stack>
-      <Fab color='primary' sx={{ position: 'fixed', right: 24, bottom: 24 }} onClick={()=>{props.changeView('Edit')}}>
+      <Fab color='primary' sx={{ position: 'fixed', right: 24, bottom: 24 }} onClick={() => { props.changeView('Edit') }}>
         <AddIcon />
       </Fab>
     </Box>

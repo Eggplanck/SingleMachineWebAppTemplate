@@ -11,7 +11,7 @@ function App() {
   const [viewMode, setViewMode] = useState('List');
   const [memoId, setMemoId] = useState(-1);
 
-  const changeView = (viewMode, memoId=-1) => {
+  const changeView = (viewMode, memoId = -1) => {
     setViewMode(viewMode);
     setMemoId(memoId);
   };

@@ -46,7 +46,7 @@ function SignUpView(props) {
           </Button>
         </Box>
         <Box sx={{ mt: 2 }}>
-          <Link component='button' onClick={()=>{props.changeView('SignIn')}}>
+          <Link component='button' onClick={() => { props.changeView('SignIn') }}>
             Already have an account? Sign In
           </Link>
         </Box>

@@ -15,24 +15,24 @@ function DetailView(props) {
   const memoId = props.memoId;
   const [data, setData] = useState({})
   useEffect(() => {
-    if (localStorage.getItem('token')===null){
+    if (localStorage.getItem('token') === null) {
       props.changeView("SignIn");
       return;
     }
-    if (memoId >= 0){
+    if (memoId >= 0) {
       authApi.get(`/memos/${memoId}`)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-        console.log(error);
-        if (error.response.status===401){
-          localStorage.removeItem('token');
-          props.changeView('SignIn');
-        }
-      });
-    }else{
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+          console.log(error);
+          if (error.response.status === 401) {
+            localStorage.removeItem('token');
+            props.changeView('SignIn');
+          }
+        });
+    } else {
       props.changeView('List');
     }
   }, []);
@@ -70,7 +70,7 @@ function DetailView(props) {
         <Box sx={{ height: 100 }} />
       </Container>
       <Box sx={{ position: 'fixed', right: 24, bottom: 24 }}>
-        <Fab color='primary' sx={{ mr: 1 }} onClick={()=>{props.changeView('Edit', memoId)}}>
+        <Fab color='primary' sx={{ mr: 1 }} onClick={() => { props.changeView('Edit', memoId) }}>
           <EditIcon />
         </Fab>
         <Fab color='error' sx={{ mr: 1 }} onClick={handleDelete}>
@@ -78,7 +78,7 @@ function DetailView(props) {
         </Fab>
       </Box>
       <Box sx={{ position: 'fixed', left: 24, bottom: 24 }}>
-        <Fab onClick={()=>{props.changeView('List')}}>
+        <Fab onClick={() => { props.changeView('List') }}>
           <NavigateBeforeIcon />
         </Fab>
       </Box>
