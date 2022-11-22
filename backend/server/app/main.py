@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, Response, Request
+from fastapi import Depends, FastAPI, Response, Request, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.exception_handlers import request_validation_exception_handler
@@ -110,3 +110,10 @@ def authentication_exception_handler(request: Request, exc: AuthenticationExcept
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     return await request_validation_exception_handler(request, exc)
+
+@app.exception_handler(HTTPException)
+def any_http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"message": exc.detail},
+    )
