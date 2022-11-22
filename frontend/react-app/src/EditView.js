@@ -8,6 +8,7 @@ import Header from './Header';
 
 
 function EditView(props) {
+  const memoId = props.memoId;
   const title = 'Title';
   const content = 'Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.';
   return (
@@ -20,7 +21,7 @@ function EditView(props) {
           <Button variant='contained' color='primary' sx={{ mr: 1 }} startIcon={<ArrowUpwardIcon />}>
             Submit
           </Button>
-          <Button variant='contained' color='error' sx={{ mr: 1 }} startIcon={<CancelIcon />}>
+          <Button variant='contained' color='error' sx={{ mr: 1 }} startIcon={<CancelIcon />} onClick={()=>{props.changeView('Detail', memoId)}} >
             Cancel
           </Button>
         </Box>

@@ -10,15 +10,18 @@ function ListView(props) {
     <Box>
       <Header changeView={props.changeView} />
       <Stack spacing={1} alignItems="center" sx={{ mt: 2 }}>
-        <TitleCard />
-        <TitleCard />
-        <TitleCard />
-        <TitleCard />
-        <TitleCard />
-        <TitleCard />
-        <TitleCard />
-        <TitleCard />
-        <TitleCard />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
+        <TitleCard changeView={props.changeView} />
         <Box sx={{ height: 100 }} />
       </Stack>
       <Fab color='primary' sx={{ position: 'fixed', right: 24, bottom: 24 }}>

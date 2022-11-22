@@ -5,9 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-function TitleCard() {
+function TitleCard(props) {
   const title = 'Title';
   const date = '2022-10-13 22:50:00';
+  const memoId = 1;
   return (
     <Card variant="outlined" sx={{ width: "99%" }}>
       <CardContent>
@@ -19,7 +20,7 @@ function TitleCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">detail</Button>
+        <Button size="small" onClick={()=>{props.changeView('Detail', memoId)}} >detail</Button>
       </CardActions>
     </Card>
   );
