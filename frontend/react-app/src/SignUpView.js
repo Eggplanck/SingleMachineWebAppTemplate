@@ -1,26 +1,54 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import Header from './Header';
+import { noAuthApi } from './axiosApi';
 
 
-function SignUpView() {
+function SignUpView(props) {
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const request_body = {
+      'username': data.get('username'),
+      'password': data.get('password')
+    }
+    noAuthApi.post('/users/', request_body)
+      .then((response) => {
+        return noAuthApi.post('/token', data);
+      })
+      .then((response) => {
+        localStorage.setItem('token', response.data.access_token);
+        props.changeView('List');
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+        console.log(error);
+      });
+  };
+
   return (
     <Box>
-      <Header showButton={false} />
+      <Header />
       <Container maxWidth='xs' sx={{ textAlign: 'center', mt: 3 }}>
         <Typography variant="h3">
           Sign Up
         </Typography>
-        <Box component='form'>
-          <TextField margin="normal" required fullWidth label="Username" autoFocus />
-          <TextField margin="normal" required fullWidth label="Password" type="password" autoComplete="current-password" />
+        <Box component='form' onSubmit={handleSubmit} >
+          <TextField margin="normal" required fullWidth name='username' label="Username" autoFocus />
+          <TextField margin="normal" required fullWidth name='password' label="Password" type="password" />
           <Button variant="contained" type="submit" sx={{ mt: 3 }}>
             Sign Up
           </Button>
+        </Box>
+        <Box sx={{ mt: 2 }}>
+          <Link component='button' onClick={()=>{props.changeView('SignIn')}}>
+            Already have an account? Sign In
+          </Link>
         </Box>
       </Container>
     </Box>

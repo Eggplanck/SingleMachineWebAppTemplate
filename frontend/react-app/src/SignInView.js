@@ -19,13 +19,14 @@ function SignInView(props) {
         props.changeView('List');
       })
       .catch((error) => {
-        console.log(error)
+        alert(error.response.data.message);
+        console.log(error);
       });
   };
 
   return (
     <Box>
-      <Header showButton={false} />
+      <Header />
       <Container maxWidth='xs' sx={{ textAlign: 'center', mt: 3 }}>
         <Typography variant="h3">
           Sign In
@@ -38,7 +39,7 @@ function SignInView(props) {
           </Button>
         </Box>
         <Box sx={{ mt: 2 }}>
-          <Link component='button'>
+          <Link component='button' onClick={()=>{props.changeView('SignUp')}}>
             Don't have an account? Sign Up
           </Link>
         </Box>

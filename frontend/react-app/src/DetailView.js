@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -9,13 +8,13 @@ import Fab from '@mui/material/Fab';
 import Header from './Header';
 
 
-function DetailView() {
+function DetailView(props) {
   const title = 'Title';
   const date = '2022-10-13 22:50:00';
   const content = 'Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.';
   return (
     <Box>
-      <Header showButton={true} />
+      <Header changeView={props.changeView} />
       <Container maxWidth='xl'>
         <Box>
           <Typography variant="h3" color="text.primary">

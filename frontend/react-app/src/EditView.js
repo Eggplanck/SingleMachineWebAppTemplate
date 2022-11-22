@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -8,12 +7,12 @@ import Button from '@mui/material/Button';
 import Header from './Header';
 
 
-function EditView() {
+function EditView(props) {
   const title = 'Title';
   const content = 'Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.Content.';
   return (
     <Box>
-      <Header showButton={true} />
+      <Header changeView={props.changeView} />
       <Container maxWidth='xl'>
         <TextField required multiline minRows={1} maxRows={2} variant='standard' label='Title' value={title} margin='normal' sx={{ width: '50ch', maxWidth: '100%' }} />
         <TextField multiline minRows={4} variant='outlined' label='Content' value={content} margin='normal' sx={{ width: '100%' }} />

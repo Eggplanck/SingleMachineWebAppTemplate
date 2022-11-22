@@ -8,7 +8,7 @@ import SignUpView from './SignUpView';
 import './App.css';
 
 function App() {
-  const [viewMode, setViewMode] = useState('SignIn');
+  const [viewMode, setViewMode] = useState('SignUp');
 
   const changeView = (viewMode) => {
     setViewMode(viewMode);
