@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 function TitleCard(props) {
-  const title = 'Title';
-  const date = '2022-10-13 22:50:00';
-  const memoId = 1;
+  const memoId = props.data.id;
+  const title = props.data.title;
+  const date = props.data.create_time;
   return (
     <Card variant="outlined" sx={{ width: "99%" }}>
       <CardContent>
