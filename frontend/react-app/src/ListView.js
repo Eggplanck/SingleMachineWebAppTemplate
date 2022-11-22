@@ -16,7 +16,6 @@ function ListView(props) {
     }
     authApi.get('/memos/')
       .then((response) => {
-        console.log(response)
         setTitleCardList(response.data.map(data => <TitleCard changeView={props.changeView} data={data} key={data.id} />));
       })
       .catch((error) => {
