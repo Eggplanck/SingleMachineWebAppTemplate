@@ -1,0 +1,10 @@
+FROM node:16-slim as react-build
+COPY ./react-app ./react-app
+WORKDIR /react-app
+RUN yarn
+RUN yarn build
+
+FROM nginx:latest
+ENV TZ=Asia/Tokyo
+COPY --from=react-build /react-app/build /front
+COPY ./default.conf /etc/nginx/conf.d/default.conf

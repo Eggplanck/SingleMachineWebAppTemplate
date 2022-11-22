@@ -5,9 +5,13 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 function Header(props) {
-  let logoutButton = null;
-  if (props.showButton) {
-    logoutButton = <Button color="secondary" variant="contained">Logout</Button>;
+  let signOutButton = null;
+  if (props.changeView) {
+    const handleSignOut = () => {
+      localStorage.removeItem('token');
+      props.changeView('SignIn');
+    };
+    signOutButton = <Button color="secondary" variant="contained" onClick={handleSignOut}>SignOut</Button>;
   }
   return (
     <AppBar sx={{ width: "100%" }} position="sticky" color="primary">
@@ -15,7 +19,7 @@ function Header(props) {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "left" }}>
           Memo
         </Typography>
-        {logoutButton}
+        {signOutButton}
       </Toolbar>
     </AppBar>
   );
